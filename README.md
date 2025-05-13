@@ -1,68 +1,92 @@
-# Détection d’anomalies de souscription et de gestion des contrats d’assurance
+# 🚀 Project Objective
 
-## 1. Contexte métier  
-La Direction du Contrôle Interne d’Allianz doit garantir le respect des règles de souscription et de gestion de contrats (Particulier, Entreprise, Santé, Vie…).  
-Votre mission : simuler un cas réel en développant, de bout en bout, un prototype d’algorithme d’anomalie qui :
-- Vérifie automatiquement la conformité des nouveaux contrats (attributs manquants, tarifs hors-grille, couvertures incompatibles…).  
-- Signale les comportements potentiellement frauduleux (montants anormaux, fréquence inhabituelle de souscriptions, résiliations soudaines).  
+Detect subscription and contract management anomalies for insurance policies.
 
-## 2. Objectifs du projet  
-1. **Collecte & simulation des données**  
-   - Générer un jeu de données synthétique (10 000 contrats) avec :  
-     - Identifiant client, type de produit, date de souscription, montant prime, garanties, localisation, statut sinistre.  
-   - Ou exploiter un jeu de données open source « insurance ».
+## 1. Business Context
 
-2. **Exploration & feature engineering**  
-   - Nettoyer et consolider les données (gestion des valeurs manquantes, encodage catégoriel, normalisation).  
-   - Extraire des indicateurs métier :  
-     - Âge du contrat, délai souscription–sinistre, fréquence de résiliation, ratio primes/sinistres.  
+The Internal Control Department at Allianz must ensure compliance with subscription and contract management rules (Individual, Business, Health, Life, etc.).
+Your mission: simulate a real case by developing an end-to-end anomaly detection prototype that:
 
-3. **Détection d’anomalies CPU-only**  
-   - Approches **unsupervised** : Isolation Forest, One-Class SVM, Autoencoder dense (PyTorch CPU).  
-   - Méthodes **statistiques** : score de Mahalanobis, clustering DBSCAN.  
-   - Comparer sensibilité (recall) et précision (precision) sur un sous-ensemble labellisé (5 % anomalies injectées).
+* Automatically checks the compliance of new contracts (missing attributes, out-of-range premiums, incompatible coverages, etc.).
+* Flags potentially fraudulent behaviors (abnormal amounts, unusual subscription frequency, sudden cancellations).
 
-4. **Évaluation & tuning**  
-   - Métriques : ROC–AUC, Precision@K, F1-score sur anomalies rares.  
-   - Optimisation hyperparamètres : nombre d’arbres, taille encodeur, seuils.
+## 2. Project Goals
 
-5. **Explainability & reporting**  
-   - Utiliser SHAP pour la contribution des features.  
-   - Visualisations : distributions, courbes de score, heatmaps.  
-   - Dashboard statique avec Plotly + Dash (CPU-only).
+1. **Data collection & simulation**
 
-6. **Packaging & REST API**  
-   - Docker + FastAPI (Uvicorn) :  
-     - Endpoint `/predict` recevant un JSON de contrat, renvoyant un score d’anomalie + explications.  
-   - Documentation Swagger.
+   * Generate a synthetic dataset (10,000 contracts) with:
 
-## 3. Compétences visées  
-- Anomaly Detection avancé (Autoencoder, Isolation Forest, Mahalanobis).  
-- Machine Learning CPU-only (optimisation PyTorch).  
-- Explainable AI (SHAP).  
-- MLOps léger (Docker, FastAPI).  
-- Data Engineering (simulation, pipelines).
+     * Client ID, product type, subscription date, premium amount, coverages, location, claim status.
+   * Or leverage an open-source “insurance” dataset.
 
-## 4. Contraintes techniques  
-- **100 % CPU**.  
-- **Zéro coût** (open source).  
-- **Local & reproductible**.
+2. **Exploration & feature engineering**
 
-## 5. Planning (1 semaine)
+   * Clean and consolidate data (handle missing values, categorical encoding, normalization).
+   * Extract business indicators:
 
-| Jour | Tâches |
-|:----:|:-------|
-| **1** | Génération / ingestion des données<br>Arborescence du repo & README |
-| **2** | Cleaning & feature engineering<br>Notebook EDA |
-| **3** | Baselines : Isolation Forest, Mahalanobis<br>Évaluation initiale |
-| **4** | Autoencoder PyTorch CPU<br>Entraînement & validation |
-| **5** | Tuning hyperparamètres<br>Métriques avancées |
-| **6** | Explainability (SHAP, visualisations)<br>Dashboard Dash |
-| **7** | Docker + FastAPI<br>Rapport final & slides |
+     * Contract age, subscription–claim delay, cancellation frequency, premium-to-claim ratio.
 
-## 6. Livrables  
-- Repo GitHub structuré.  
-- Notebook Jupyter complet.  
-- Dashboard Dash exportable.  
-- Image Docker + API Swagger.  
-- Document de synthèse + slides.
+3. **CPU-only anomaly detection**
+
+   * **Unsupervised** approaches: Isolation Forest, One-Class SVM, dense Autoencoder (PyTorch CPU).
+   * **Statistical** methods: Mahalanobis distance, DBSCAN clustering.
+   * Compare recall and precision on a labeled subset (5% injected anomalies).
+
+4. **Evaluation & tuning**
+
+   * Metrics: ROC–AUC, Precision\@K, F1-score for rare anomalies.
+   * Hyperparameter optimization: number of trees, encoder size, detection thresholds.
+
+5. **Explainability & reporting**
+
+   * Use SHAP for feature contributions.
+   * Visualizations: distributions, score curves, heatmaps.
+   * Static dashboard with Plotly + Dash (CPU-only).
+
+6. **Packaging & REST API**
+
+   * Docker + FastAPI (Uvicorn):
+
+     * Endpoint `/predict` accepting a contract JSON, returning an anomaly score + explanations.
+   * Swagger documentation.
+
+## 3. Targeted Skills
+
+* Advanced anomaly detection (Autoencoder, Isolation Forest, Mahalanobis).
+* CPU-only machine learning (PyTorch optimization).
+* Explainable AI (SHAP).
+* Lightweight MLOps (Docker, FastAPI).
+* Data engineering (simulation, pipelines).
+
+## 4. Technical Constraints
+
+* **100% CPU**.
+* **Zero cost** (open source).
+* **Local & reproducible**.
+
+## 5. One-week Plan
+
+|               Day              | Tasks                                    |
+| :----------------------------: | :--------------------------------------- |
+|              **1**             | Data generation & ingestion              |
+| Repo structure & README setup. |                                          |
+|              **2**             | Cleaning & feature engineering           |
+|          EDA notebook.         |                                          |
+|              **3**             | Baselines: Isolation Forest, Mahalanobis |
+|       Initial evaluation.      |                                          |
+|              **4**             | PyTorch CPU Autoencoder                  |
+|     Training & validation.     |                                          |
+|              **5**             | Hyperparameter tuning                    |
+|        Advanced metrics.       |                                          |
+|              **6**             | Explainability (SHAP, visualizations)    |
+|         Dash dashboard.        |                                          |
+|              **7**             | Docker & FastAPI                         |
+|     Final report & slides.     |                                          |
+
+## 6. Deliverables
+
+* Structured GitHub repository.
+* Complete Jupyter notebook.
+* Exportable Dash dashboard.
+* Docker image + Swagger API.
+* Summary document + slides.
